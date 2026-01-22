@@ -17,7 +17,7 @@ var (
 var SendCmd = &cobra.Command{
 	Use:   "http [name]",
 	Short: "Send HTTP requests ",
-	Args:  cobra.MaximumNArgs(1),
+	Args:  cobra.ExactArgs(1),
 	Long:  "This is used to send the actual http requests using reqx",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -81,6 +81,8 @@ var SendCmd = &cobra.Command{
 
 		return err
 	},
+	SilenceErrors: true,
+	SilenceUsage: true,
 }
 
 func init() {
