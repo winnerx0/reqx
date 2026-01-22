@@ -1,2 +1,7 @@
 reqx
 reqx.yaml
+
+reqx-darwin-x64
+reqx-win-x64
+*.exe
+reqx-linux-x64
