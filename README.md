@@ -6,8 +6,10 @@ reqx is a command-line HTTP client that executes requests defined in a YAML conf
 
 - **YAML Configuration**: Define HTTP requests in valid YAML files.
 - **Batch Execution**: Run multiple requests in sequence from a single file.
+- **Single Request Execution**: Run a specific request by name.
 - **Custom Headers**: Support for setting custom request headers (Authorization, Content-Type, etc.).
 - **JSON Body Support**: Easily define request bodies as structured data.
+- **Silent Mode**: Option to suppress output and show only status codes.
 
 ## Requirements
 
@@ -34,19 +36,22 @@ go build -o reqx
 The basic command to send requests is `http`. `reqx.yaml` is the default file used if no file is specified.
 
 ```bash
-reqx http [flags]
+reqx http [name] [flags]
 ```
 
 ### Flags
 
-- `-p, --path`: Path to the request YAML file (default "reqx.yaml")
+- `-p, --path`: Path to the request YAML/YML file (default "reqx.yaml")
 - `-s, --silent`: Show only request status code
 
 ### Example
 
 ```bash
-# Run using default reqx.yaml
+# Run all requests in default reqx.yaml
 reqx http
+
+# Run a specific request by name
+reqx http "Get User"
 
 # Run using a specific configuration file
 reqx http -p my-requests.yaml
