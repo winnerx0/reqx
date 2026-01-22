@@ -16,7 +16,8 @@ import (
 var client = &http.Client{}
 
 var (
-	path string
+	path   string
+	silent bool
 )
 
 var SendCmd = &cobra.Command{
@@ -39,8 +40,6 @@ var SendCmd = &cobra.Command{
 		if path != "" {
 			file = path
 		}
-
-		fmt.Println("file", path)
 
 		config, err := utils.Parse(file)
 
@@ -75,13 +74,17 @@ var SendCmd = &cobra.Command{
 				return err
 			}
 
-			responsebytes, err := io.ReadAll(response.Body)
+			if silent {
+				fmt.Println("Name: " + request.Name + "\t Status: " + response.Status + "\n")
+			} else {
 
-			if err != nil {
-				return err
+				responsebytes, err := io.ReadAll(response.Body)
+
+				if err != nil {
+					return err
+				}
+				fmt.Println("Name: " + request.Name + "\n\n" + string(responsebytes) + "\n")
 			}
-
-			fmt.Println("Name: " + request.Name + "\n\n" + string(responsebytes) + "\n")
 
 		}
 
@@ -89,6 +92,7 @@ var SendCmd = &cobra.Command{
 	},
 }
 
-func init(){
+func init() {
 	SendCmd.Flags().StringVarP(&path, "path", "p", "reqx.yaml", "request YAML file path")
+	SendCmd.Flags().BoolVarP(&silent, "silent", "s", false, "show only requst status code")
 }

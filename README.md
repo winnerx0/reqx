@@ -31,20 +31,28 @@ go build -o reqx
 
 ## Usage
 
-The basic command to send requests is `send`. `request.yaml` is the default file used if no file is specified.
+The basic command to send requests is `http`. `reqx.yaml` is the default file used if no file is specified.
 
 ```bash
-reqx send [file]
+reqx http [flags]
 ```
+
+### Flags
+
+- `-p, --path`: Path to the request YAML file (default "reqx.yaml")
+- `-s, --silent`: Show only request status code
 
 ### Example
 
 ```bash
-# Run using default request.yaml
-reqx send
+# Run using default reqx.yaml
+reqx http
 
 # Run using a specific configuration file
-reqx send my-requests.yaml
+reqx http -p my-requests.yaml
+
+# Run in silent mode
+reqx http -s
 ```
 
 ## Supported HTTP Methods
@@ -72,7 +80,7 @@ Requests are defined in a YAML file using the following structure.
   - **headers**: A map of header key-value pairs (optional).
   - **body**: The request body (automatically converted to JSON) (optional).
 
-### Example `request.yaml`
+### Example `reqx.yaml`
 
 ```yaml
 requests:
