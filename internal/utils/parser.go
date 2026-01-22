@@ -29,7 +29,7 @@ type Request struct {
 	Name    string `yaml:"name"`
 	Url     string `yaml:"url"`
 	Body    any    `yaml:"body"`
-	Headers any    `yaml:"headers"`
+	Headers map[string]string    `yaml:"headers"`
 	Method  Method `yaml:"method"`
 }
 

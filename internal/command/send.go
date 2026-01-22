@@ -44,9 +44,9 @@ var SendCmd = &cobra.Command{
 				return err
 			}
 
-			for k, v := range request.Headers.(map[string]interface{}) {
+			for k, v := range request.Headers {
 
-				req.Header.Add(k, v.(string))
+				req.Header.Add(k, v)
 			}
 
 			response, err := client.Do(req)
