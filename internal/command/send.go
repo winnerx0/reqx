@@ -14,7 +14,7 @@ import (
 var client = &http.Client{}
 
 var SendCmd = &cobra.Command{
-	Use:   "send [request.yaml]",
+	Use:   "http [request.yaml]",
 	Short: "Send HTTP requests ",
 	Args:  cobra.MaximumNArgs(1),
 	Long:  "This is used to send the actual http requests using reqx",
