@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 	"github.com/winnerx0/reqx/internal/utils"
@@ -14,19 +16,31 @@ import (
 var client = &http.Client{}
 
 var SendCmd = &cobra.Command{
-	Use:   "http [request.yaml]",
+	Use:   "http [r]",
 	Short: "Send HTTP requests ",
 	Args:  cobra.MaximumNArgs(1),
 	Long:  "This is used to send the actual http requests using reqx",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
-		file := "request.yaml"
+		file := "reqx.yaml"
+
+		pwd, err := os.Getwd()
+
+		if err != nil {
+			return err
+		}
+
+		file = filepath.Join(pwd, "reqx.yaml")
 
 		if len(args) > 0 {
 			file = args[0]
 		}
 
 		config, err := utils.Parse(file)
+
+		if err != nil {
+			return err
+		}
 
 		for _, request := range config.Requests {
 
