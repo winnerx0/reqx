@@ -15,8 +15,12 @@ import (
 
 var client = &http.Client{}
 
+var (
+	path string
+)
+
 var SendCmd = &cobra.Command{
-	Use:   "http [r]",
+	Use:   "http [name]",
 	Short: "Send HTTP requests ",
 	Args:  cobra.MaximumNArgs(1),
 	Long:  "This is used to send the actual http requests using reqx",
@@ -32,9 +36,11 @@ var SendCmd = &cobra.Command{
 
 		file = filepath.Join(pwd, "reqx.yaml")
 
-		if len(args) > 0 {
-			file = args[0]
+		if path != "" {
+			file = path
 		}
+
+		fmt.Println("file", path)
 
 		config, err := utils.Parse(file)
 
@@ -81,4 +87,8 @@ var SendCmd = &cobra.Command{
 
 		return err
 	},
+}
+
+func init(){
+	SendCmd.Flags().StringVarP(&path, "path", "p", "reqx.yaml", "request YAML file path")
 }
