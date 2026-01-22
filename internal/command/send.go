@@ -47,19 +47,15 @@ var SendCmd = &cobra.Command{
 			return err
 		}
 
+		var namedRequest *utils.Request
 		for _, request := range config.Requests {
 
 			if name != "" {
-				if request.Name == name {
-					err = utils.SendRequest(request, silent, name)
 
-					if err != nil {
-						return err
-					}
-					return nil
-				} else {
-					return errors.New("request does not exist in request YAML file")
+				if request.Name == name {
+					namedRequest = &request
 				}
+
 			} else {
 				err = utils.SendRequest(request, silent, name)
 
@@ -68,6 +64,19 @@ var SendCmd = &cobra.Command{
 				}
 			}
 
+		}
+
+		if name != "" {
+			if namedRequest != nil {
+				err = utils.SendRequest(*namedRequest, silent, name)
+			} else {
+				return errors.New("request does not exist in request YAML file")
+
+			}
+		}
+
+		if err != nil {
+			return err
 		}
 
 		return err
