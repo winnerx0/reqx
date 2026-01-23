@@ -14,7 +14,7 @@ var (
 	silent bool
 )
 
-var SendCmd = &cobra.Command{
+var HttpCmd = &cobra.Command{
 	Use:   "http [name]",
 	Short: "Send HTTP requests ",
 	Args:  cobra.ExactArgs(1),
@@ -86,6 +86,6 @@ var SendCmd = &cobra.Command{
 }
 
 func init() {
-	SendCmd.Flags().StringVarP(&path, "path", "p", "reqx.yaml", "request YAML file path")
-	SendCmd.Flags().BoolVarP(&silent, "silent", "s", false, "show only requst status code")
+	HttpCmd.Flags().StringVarP(&path, "path", "p", "reqx.yaml", "request YAML file path")
+	HttpCmd.Flags().BoolVarP(&silent, "silent", "s", false, "show only requst status code")
 }
