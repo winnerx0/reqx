@@ -8,7 +8,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "reqx",
 	Short: "Reqx http client",
-	Long:  "This is an application that acts like a http client with json files",
+	Long:  "This is an application that acts like a http client with yaml template",
 }
 
 func Execute() {
