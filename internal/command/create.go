@@ -22,11 +22,6 @@ var CreateCmd = &cobra.Command{
 		}
 
 		requests := utils.Config{Requests: []utils.Request{
-			utils.Request{
-				Url:     "",
-				Headers: map[string]string{},
-				Method:  "GET",
-			},
 		}}
 
 		yamlBytes, err := yaml.Marshal(requests)

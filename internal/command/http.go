@@ -12,6 +12,7 @@ import (
 var (
 	path   string
 	silent bool
+	field string
 )
 
 var HttpCmd = &cobra.Command{
@@ -57,7 +58,7 @@ var HttpCmd = &cobra.Command{
 				}
 
 			} else {
-				err = utils.SendRequest(request, silent, name)
+				err = utils.SendRequest(request, silent, field, name)
 
 				if err != nil {
 					return err
@@ -68,7 +69,7 @@ var HttpCmd = &cobra.Command{
 
 		if name != "" {
 			if namedRequest != nil {
-				err = utils.SendRequest(*namedRequest, silent, name)
+				err = utils.SendRequest(*namedRequest, silent, field, name)
 			} else {
 				return errors.New("request does not exist in request YAML file")
 
@@ -88,4 +89,5 @@ var HttpCmd = &cobra.Command{
 func init() {
 	HttpCmd.Flags().StringVarP(&path, "path", "p", "reqx.yaml", "request YAML file path")
 	HttpCmd.Flags().BoolVarP(&silent, "silent", "s", false, "show only requst status code")
+	HttpCmd.Flags().StringVarP(&field, "field", "f", "", "get a field in the response")
 }
