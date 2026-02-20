@@ -64,7 +64,7 @@ func SendRequest(request Request, silent bool, field string, name string) error 
 			return errors.New("Field does not exist in response")
 		}
 
-		fmt.Printf("Name: %s\n\nValue: %s", request.Name, details)
+		fmt.Printf("Name: %s\n\nValue: %v\n", request.Name, details)
 
 
 	} else {
